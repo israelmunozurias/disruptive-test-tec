@@ -1,41 +1,10 @@
 {
-  "workbench.colorTheme": "Default Dark+",
-  "workbench.iconTheme": "material-icon-theme",
-  "editor.fontFamily": "'Fira Code', 'Courier New', monospace",
-  "editor.tabSize": 2,
-  "editor.fontLigatures": true,
-  "terminal.integrated.tabs.enabled": false,
+  // Set the default
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": null,
-  "diffEditor.wordWrap": "on",
-  "diffEditor.ignoreTrimWhitespace": false,
-  "bracket-pair-colorizer-2.depreciation-notice": false,
-  "[typescript]": {
+
+  // Enable per-language
+  "[javascript]": {
+    "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[markdown]": {
-    "editor.formatOnSave": false
-  },
-  "json.maxItemsComputed": 20000,
-  "editor.guides.bracketPairs": true,
-  "oneDarkPro.bold": true,
-  "oneDarkPro.vivid": true,
-  "editor.largeFileOptimizations": false,
-  "[python]": {
-    "editor.formatOnType": true
-  },
-  "terminal.integrated.env.linux": {},
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "git.openRepositoryInParentFolders": "never",
-  "eslint.codeActionsOnSave.rules": null,
-  "settingsSync.ignoredExtensions": [],
-  "tabnine.experimentalAutoImports": true,
-  "explorer.confirmDelete": false,
-  "vs-kubernetes": {
-    "vscode-kubernetes.helm-path.linux": "/home/israel/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm",
-    "vscode-kubernetes.kubectl-path.linux": "/home/israel/.local/state/vs-kubernetes/tools/kubectl/kubectl"
-  }
 }
