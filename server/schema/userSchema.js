@@ -7,11 +7,11 @@ const userSchema = new Schema(
   {
     name: { type: String, required: true },
     lastName: { type: String, required: true },
-    userName: { type: String, required: true, unique: true },
+    user: { type: String, required: true, unique: true },
     mail: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     roll: { type: String, required: true }, // _idRol
-    status: { type: String, required: true, unique: true },
+    status: { type: String, required: true },
   },
   { versionKey: false, timestamps: true }
 );

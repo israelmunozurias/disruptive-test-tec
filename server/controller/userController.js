@@ -1,91 +1,49 @@
-const Schema = require("../schema/index");
-const Utils = require("../utils/utils");
-const CONST = require("../config/constants");
+const express = require("express");
+const user = express.Router();
+const Server = require("../services/index");
+const DTO = require("../DTO/index");
 
-const login = async (login) => {
-  console.log("login", login);
+user.get("/login", async (req, res) => {
+  const user = req.query.user;
+  const password = req.query.password;
 
-  return await Schema.User.findOne({
-    userName: { $eq: user.userName },
-    mail: { $eq: user.mail },
-  });
-};
+  const result = await Server.User.login({ user, password });
+  if (result) res.status(200).json({ message: "Logeado", result });
+  else res.status(404).json(registered);
+});
 
-const createUser = async (user) => {
-  console.log("llege", user);
-  return await Schema.User.create(user)
-    .then((result) => {
-      console.log("Saved:", result);
-      return result;
-    })
-    .catch((error) => {
-      console.error("Error not saved:", error);
-      return false;
-    });
-};
+user.post("/set", async (req, res) => {
+  const valid = DTO.UserDTO.validateDTO(req.body);
+  if (valid) {
+    const registered = await Server.User.create(req.body);
+    res.status(201).json(registered);
+  } else return res.status(404).json({ error: valid });
+});
 
-const getUsers = async (user) => {
-  console.log("getUser", user);
+user.get("/gets", async (req, res) => {
+  const user = req.query.user;
+  const mail = req.query.mail;
 
-  const users = await Schema.User.aggregate([
-    {
-      $match: {
-        $and: [
-          Utils.isEqual("userName", user.userName),
-          Utils.isEqual("mail", user.mail),
-          /* Utils.isGreatEqualDate(
-            "createdAt",
-            user.createdAt?.replace(/-/g, "")
-          ),
-          Utils.isLessEqualDate("createdAt", user.createdAt?.replace(/-/g, "")),
-          { status: CONST.STATUS_CONSTANT.ACTIVE }, */
-        ],
-      },
-    },
-    {
-      $sort: {
-        date: -1,
-      },
-    },
-  ]);
-  console.log("getUsers", users);
-  return users;
-};
+  const result = await Server.User.gets({ user, mail });
+  if (result) res.status(200).json(result);
+  else res.status(404).json(false);
+});
 
-const updateUser = async (user) => {
-  return await new Schema.User.updateOne(
-    { _id: { $eq: user._id } },
-    { $set: { user } }
-  )
-    .then((result) => {
-      console.log("Updated:", result);
-      return result;
-    })
-    .catch((error) => {
-      console.error("Error not Updated:", error);
-      return false;
-    });
-};
+user.put("/update", async (req, res) => {
+  const valid = DTO.UserDTO.validateDTO(req.body);
+  if (valid) {
+    const updated = await Server.User.update(req.body);
 
-const deleteUser = async (user) => {
-  return await new Schema.User.updateOne(
-    { _id: { $eq: user._id } },
-    { status: CONST.STATUS_CONSTANT.DELETE, deletedAt: new Date() }
-  )
-    .then((result) => {
-      console.log("Updated:", result);
-      return result;
-    })
-    .catch((error) => {
-      console.error("Error not Updated:", error);
-      return false;
-    });
-};
+    res.status(201).json({ message: "Usuario modificado", updated });
+  } else return res.status(304).json({ error: valid });
+});
 
-module.exports = {
-  login,
-  createUser,
-  getUsers,
-  updateUser,
-  deleteUser,
-};
+user.delete("/remove", async (req, res) => {
+  if (req.body) {
+    const deleted = await Server.User.remove(req.body);
+
+    res.status(204).json({ message: "Eliminado", deleted });
+  } else return res.status(400).json({ error: req.body });
+});
+
+module.exports = user;
