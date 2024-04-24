@@ -4,8 +4,6 @@ const CONST = require("../config/constants");
 const mongoose = require("mongoose");
 
 const login = async (data) => {
-  console.log("login", data);
-
   return await Schema.User.findOne({
     user: { $eq: data.user },
     password: { $eq: data.password },

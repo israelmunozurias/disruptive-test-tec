@@ -30,12 +30,10 @@ const gets = async (data) => {
       },
     },
   ]);
-  console.log("gets", result);
   return result;
 };
 
 const update = async (data) => {
-  console.log("data", data);
   return await Schema.Content.findOneAndUpdate({ _id: { $eq: data._id } }, data)
     .then((result) => {
       console.log("Updated:", result);

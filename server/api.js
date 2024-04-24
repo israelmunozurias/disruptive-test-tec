@@ -22,8 +22,11 @@ mongoose.connect(process.env.MONGODB_URL_DEV);
 
 app.listen(port, async () => {
   console.log(`Server listening on ${port}`);
-  const userValid = DTO.UserDTO.validateDTO(CONST.userAdmin);
-  if (userValid) await Server.User.create(CONST.userAdmin);
+  const registered = await Server.User.gets({ user: CONST.userAdmin.user });
+  if (!registered.length) {
+    const userValid = DTO.UserDTO.validateDTO(CONST.userAdmin);
+    if (userValid) await Server.User.create(CONST.userAdmin);
+  }
 });
 
 app.use("/content", Controller.content);

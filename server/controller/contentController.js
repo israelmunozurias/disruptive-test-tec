@@ -21,7 +21,6 @@ content.get("/gets", async (req, res) => {
 
 content.put("/update", async (req, res) => {
   const valid = DTO.ContentDTO.validateDTO(req.body);
-  console.log("valid", valid);
   if (valid) {
     const updated = await Server.Content.update(req.body);
     res.status(201).json(updated);
