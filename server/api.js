@@ -26,4 +26,7 @@ app.listen(port, async () => {
   if (userValid) await Server.User.create(CONST.userAdmin);
 });
 
+app.use("/content", Controller.content);
+app.use("/roll", Controller.roll);
+app.use("/thematic", Controller.thematic);
 app.use("/user", Controller.user);

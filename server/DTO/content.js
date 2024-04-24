@@ -1,14 +1,16 @@
 const Joi = require("joi");
 
 const ContentDTO = Joi.object({
+  _id: Joi.string(),
   name: Joi.string().required(),
   idThematic: Joi.string().required(),
   img: Joi.string().required(),
+  status: Joi.string().required(),
   content: {
-    img: Joi.string(),
-    video: Joi.string(),
-    urlYoutube: Joi.string(),
-    document: Joi.string(),
+    img: Joi.array().items(Joi.string()),
+    video: Joi.array().items(Joi.string()),
+    urlYoutube: Joi.array().items(Joi.string()),
+    document: Joi.array().items(Joi.string()),
   },
 });
 

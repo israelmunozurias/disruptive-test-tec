@@ -10,6 +10,7 @@ const rollSchema = new Schema(
     //  Admin = CRUD
     //  Lector = R
     //  Creador = CRU
+    status: { type: String, required: true },
   },
   { versionKey: false, timestamps: true }
 );

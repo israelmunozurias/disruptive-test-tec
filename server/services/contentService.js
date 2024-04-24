@@ -26,7 +26,7 @@ const gets = async (data) => {
     },
     {
       $sort: {
-        date: -1,
+        createdAt: -1,
       },
     },
   ]);
@@ -35,6 +35,7 @@ const gets = async (data) => {
 };
 
 const update = async (data) => {
+  console.log("data", data);
   return await Schema.Content.findOneAndUpdate({ _id: { $eq: data._id } }, data)
     .then((result) => {
       console.log("Updated:", result);
@@ -47,7 +48,7 @@ const update = async (data) => {
 };
 
 const remove = async (data) => {
-  return await Schema.Roll.findOneAndUpdate(
+  return await Schema.Content.findOneAndUpdate(
     { _id: { $eq: data._id } },
     { status: CONST.STATUS_CONSTANT.DELETE, deletedAt: new Date() }
   )

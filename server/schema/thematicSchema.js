@@ -8,6 +8,7 @@ const thematicSchema = new Schema(
     name: { type: String, required: true },
     permissions: { type: SchemaTypes.Mixed, required: true },
     // ['img', 'video', 'files']
+    status: { type: String, required: true },
   },
   { versionKey: false, timestamps: true }
 );

@@ -15,6 +15,7 @@ const contentSchema = new Schema(
     //  urlYoutube: [String],
     //  document: [String],
     //},
+    status: { type: String, required: true },
   },
   { versionKey: false, timestamps: true }
 );
