@@ -11,4 +11,4 @@ npm install
 npm start
 
 
-Lenar el .env con las contraseñas
+Llenar el .env con las contraseñas
